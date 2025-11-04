@@ -3,7 +3,7 @@
 1) Create a new Web Service on Render from this repo.
 2) Set Environment Variables:
    - AUTH_TOKEN=<generate a random token>
-   - SPEECHMATICS_API_KEY=jckE7SpZNhRzmYbh7e0qYihYOZqRVFm9
+   - SPEECHMATICS_API_KEY
 3) Choose Docker deployment. Expose port 3000.
 4) Deploy.
 
