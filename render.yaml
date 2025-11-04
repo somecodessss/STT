@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: speech-relay
+    runtime: docker
+    plan: free
+    envVars:
+      - key: AUTH_TOKEN
+        sync: false
+      - key: SPEECHMATICS_API_KEY
+        sync: false
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
