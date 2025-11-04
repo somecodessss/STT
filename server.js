@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const fetch = global.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
+
 
 app.use(express.json({ limit: "30mb" }));
 app.use(express.urlencoded({ extended: true, limit: "30mb" }));
@@ -84,6 +86,7 @@ async function fetchTranscript(jobId) {
 app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
+app.get("/", (req, res) => res.json({ ok: true, service: "speech-relay" }));
 
 app.post("/ingest", async (req, res) => {
   try {
@@ -117,4 +120,8 @@ app.get("/pull", (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0");
+app.listen(port, "0.0.0.0", () => {
+  console.log("[speech-relay] listening on", port);
+});
+process.on("SIGTERM", () => { console.log("[speech-relay] SIGTERM"); process.exit(0); });
+process.on("SIGINT", () => { console.log("[speech-relay] SIGINT"); process.exit(0); });
